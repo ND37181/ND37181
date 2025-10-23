@@ -186,8 +186,8 @@
     ],
     "listRule": "@request.auth.id != ''",
     "viewRule": "@request.auth.id != ''",
-    "createRule": "@request.auth.id = user.id || @request.auth.role = 'admin'",
-    "updateRule": "@request.auth.id = user.id || @request.auth.role = 'admin'",
+    "createRule": "@request.auth.id = user || @request.auth.role = 'admin'",
+    "updateRule": "@request.auth.id = user || @request.auth.role = 'admin'",
     "deleteRule": "@request.auth.role = 'admin'",
     "options": {}
   }
