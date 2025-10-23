@@ -99,6 +99,7 @@ docker-compose down -v
 Die Docker-Compose-Konfiguration startet zwei Services:
 
 ### PocketBase (Backend)
+- **Image:** spectado/pocketbase:latest
 - **Port:** 8090
 - **URL:** http://localhost:8090
 - **Admin-UI:** http://localhost:8090/_/
@@ -145,7 +146,8 @@ version: '3.8'
 
 services:
   pocketbase:
-    image: ghcr.io/muchobien/pocketbase:latest
+    image: spectado/pocketbase:latest
+    command: serve --http=0.0.0.0:8090
     restart: always
     volumes:
       - ./pb_data:/pb_data

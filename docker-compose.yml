@@ -3,9 +3,10 @@ version: '3.8'
 services:
   # PocketBase Backend
   pocketbase:
-    image: ghcr.io/muchobien/pocketbase:latest
+    image: spectado/pocketbase:latest
     container_name: mitarbeiterunterweisung-pocketbase
     restart: unless-stopped
+    command: serve --http=0.0.0.0:8090
     ports:
       - "8090:8090"
     volumes:
@@ -14,10 +15,11 @@ services:
     environment:
       - TZ=Europe/Berlin
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8090/api/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8090/api/health"]
       interval: 10s
       timeout: 5s
       retries: 3
+      start_period: 10s
 
   # Frontend (Nginx)
   frontend:
