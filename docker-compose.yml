@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # PocketBase Backend
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: mitarbeiterunterweisung-pocketbase
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - pocketbase_data:/pb_data
+      - ./pb_schema.json:/pb_schema.json:ro
+    environment:
+      - TZ=Europe/Berlin
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8090/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # Frontend (Nginx)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mitarbeiterunterweisung-frontend
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    depends_on:
+      - pocketbase
+    environment:
+      - TZ=Europe/Berlin
+
+volumes:
+  pocketbase_data:
+    driver: local
