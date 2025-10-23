@@ -1,0 +1,478 @@
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+/* ===================================
+   SCREEN MANAGEMENT
+   =================================== */
+
+.app-screen,
+.admin-view {
+    display: none;
+}
+
+.app-screen.active,
+.admin-view.active {
+    display: block;
+}
+
+/* ===================================
+   ANIMATIONS
+   =================================== */
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   LOADING INDICATOR
+   =================================== */
+
+#loading-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+    padding: 1rem;
+}
+
+#loading-indicator.hidden {
+    display: none;
+}
+
+#loading-indicator.error {
+    color: #dc2626;
+}
+
+#loading-indicator .spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===================================
+   MODAL OVERLAYS
+   =================================== */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+/* ===================================
+   TABS
+   =================================== */
+
+.tab-btn {
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.5rem;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.tab-btn:hover {
+    color: #3b82f6;
+}
+
+.tab-btn.active {
+    border-bottom-color: #3b82f6;
+    color: #3b82f6;
+    font-weight: 600;
+}
+
+/* ===================================
+   QUIZ STYLES
+   =================================== */
+
+.quiz-option {
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid #e5e7eb;
+}
+
+.quiz-option:hover {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+}
+
+.quiz-option.selected {
+    background-color: #dbeafe;
+    border-color: #3b82f6;
+}
+
+.quiz-option.correct {
+    background-color: #d1fae5;
+    border-color: #10b981;
+}
+
+.quiz-option.incorrect {
+    background-color: #fee2e2;
+    border-color: #ef4444;
+}
+
+/* ===================================
+   USER CARDS (ADMIN)
+   =================================== */
+
+.user-details {
+    display: none;
+}
+
+.user-card.open .user-details {
+    display: block;
+}
+
+.user-card-arrow {
+    transition: transform 0.2s;
+}
+
+.user-card.open .user-card-arrow {
+    transform: rotate(90deg);
+}
+
+/* ===================================
+   OVERVIEW TABLE
+   =================================== */
+
+.overview-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.overview-table th {
+    background: #f9fafb;
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 2px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.overview-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.overview-table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.overview-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* ===================================
+   SORTABLE HEADERS
+   =================================== */
+
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s;
+}
+
+.sortable-header:hover {
+    background-color: #f3f4f6;
+}
+
+.sort-indicator {
+    display: inline-block;
+    margin-left: 0.25rem;
+    opacity: 0.3;
+    transition: opacity 0.2s;
+}
+
+.sortable-header.sorted .sort-indicator {
+    opacity: 1;
+}
+
+/* ===================================
+   FILTER SECTION
+   =================================== */
+
+.filter-section {
+    background: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e5e7eb;
+}
+
+/* ===================================
+   STATUS BADGES
+   =================================== */
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.status-open {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-valid {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-expiring {
+    background: #fef9c3;
+    color: #854d0e;
+}
+
+.status-expired {
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+/* ===================================
+   CONTENT BLOCKS (EDITOR)
+   =================================== */
+
+.content-block {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.quiz-block {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+/* ===================================
+   PROSE (CONTENT DISPLAY)
+   =================================== */
+
+.prose {
+    max-width: 65ch;
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.prose p {
+    margin-bottom: 1.25rem;
+}
+
+.prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.prose h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.prose img {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.prose iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+.hidden {
+    display: none !important;
+}
+
+.max-w-none {
+    max-width: none !important;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+    }
+
+    .overview-table {
+        font-size: 0.875rem;
+    }
+
+    .overview-table th,
+    .overview-table td {
+        padding: 0.5rem;
+    }
+
+    .filter-section {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .tab-btn {
+        font-size: 0.875rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/* ===================================
+   BUTTONS
+   =================================== */
+
+button {
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+button:not(:disabled):active {
+    transform: translateY(0);
+}
+
+/* ===================================
+   FORM ELEMENTS
+   =================================== */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    font-family: inherit;
+    font-size: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ===================================
+   SCROLLBAR STYLING
+   =================================== */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
