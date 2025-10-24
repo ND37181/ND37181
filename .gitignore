@@ -1,0 +1,27 @@
+# Sensible Daten - NICHT committen!
+ssh-scripts/config.sh
+**/config.sh
+
+# Backup-Verzeichnisse
+*backup*/
+*Backup*/
+
+# Temporäre Dateien
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (falls verwendet)
+node_modules/
+
+# WordPress
+wp-config.php
+.htaccess
