@@ -49,6 +49,11 @@ Dieses Repository enthält eine umfassende Anleitung und Tools für die Migratio
 | [scripts/migration-tracker.html](scripts/migration-tracker.html) | Interaktiver Fortschritts-Tracker | Im Browser öffnen |
 | [scripts/widget-mapping.json](scripts/widget-mapping.json) | Elementor → Gutenberg Mapping | Als Referenz |
 | [scripts/README.md](scripts/README.md) | Anleitung für Scripts | Bei Fragen zu Tools |
+| **[ssh-scripts/](ssh-scripts/)** | **SSH Automation Scripts** | **Für technische Migration** |
+| [ssh-scripts/01-analyze-site.sh](ssh-scripts/01-analyze-site.sh) | WordPress-Analyse via SSH | Erste Bestandsaufnahme |
+| [ssh-scripts/02-verify-backup.sh](ssh-scripts/02-verify-backup.sh) | Backup-Verifikation | Sicherheit prüfen |
+| [ssh-scripts/03-create-backup.sh](ssh-scripts/03-create-backup.sh) | Vollständiges Backup erstellen | Vor Migration |
+| [ssh-scripts/README.md](ssh-scripts/README.md) | SSH-Scripts Dokumentation | Installationsanleitung |
 
 ---
 
