@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementor zu Blocks - Migration Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card.pending {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card.in-progress {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .stat-card.completed {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .progress-bar-container {
+            background: #ecf0f1;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        button.export {
+            background: #2ecc71;
+        }
+
+        button.export:hover {
+            background: #27ae60;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: #f39c12;
+            color: white;
+        }
+
+        .status-in-progress {
+            background: #3498db;
+            color: white;
+        }
+
+        .status-completed {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .priority-high {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .priority-medium {
+            color: #f39c12;
+        }
+
+        .priority-low {
+            color: #95a5a6;
+        }
+
+        .complexity-high {
+            color: #e74c3c;
+        }
+
+        .complexity-medium {
+            color: #f39c12;
+        }
+
+        .complexity-low {
+            color: #2ecc71;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        @media print {
+            .controls, button, select {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Migration Tracker: Elementor → Blocks</h1>
+        <p class="subtitle">Website: fahrzeugelektronik-service.de</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="total-pages">0</div>
+                <div class="stat-label">Gesamt Seiten</div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-number" id="pending-pages">0</div>
+                <div class="stat-label">Ausstehend</div>
+            </div>
+            <div class="stat-card in-progress">
+                <div class="stat-number" id="in-progress-pages">0</div>
+                <div class="stat-label">In Arbeit</div>
+            </div>
+            <div class="stat-card completed">
+                <div class="stat-number" id="completed-pages">0</div>
+                <div class="stat-label">Fertig</div>
+            </div>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+        </div>
+
+        <div class="controls">
+            <input type="text" id="page-name" placeholder="Seitenname">
+            <input type="text" id="page-url" placeholder="URL">
+            <select id="page-priority">
+                <option value="Hoch">Hoch</option>
+                <option value="Mittel" selected>Mittel</option>
+                <option value="Niedrig">Niedrig</option>
+            </select>
+            <select id="page-complexity">
+                <option value="Hoch">Komplex</option>
+                <option value="Mittel" selected>Mittel</option>
+                <option value="Niedrig">Einfach</option>
+            </select>
+            <button onclick="addPage()">Seite hinzufügen</button>
+            <button class="export" onclick="exportData()">Als JSON exportieren</button>
+            <button class="export" onclick="exportCSV()">Als CSV exportieren</button>
+        </div>
+
+        <table id="pages-table">
+            <thead>
+                <tr>
+                    <th>Seitenname</th>
+                    <th>URL</th>
+                    <th>Priorität</th>
+                    <th>Komplexität</th>
+                    <th>Status</th>
+                    <th>Notizen</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody id="pages-tbody">
+                <!-- Seiten werden hier eingefügt -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let pages = [];
+
+        // Lade gespeicherte Daten beim Start
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('migration-pages');
+            if (saved) {
+                pages = JSON.parse(saved);
+                renderTable();
+                updateStats();
+            }
+        });
+
+        function addPage() {
+            const name = document.getElementById('page-name').value.trim();
+            const url = document.getElementById('page-url').value.trim();
+            const priority = document.getElementById('page-priority').value;
+            const complexity = document.getElementById('page-complexity').value;
+
+            if (!name) {
+                alert('Bitte Seitennamen eingeben');
+                return;
+            }
+
+            pages.push({
+                id: Date.now(),
+                name,
+                url,
+                priority,
+                complexity,
+                status: 'Ausstehend',
+                notes: ''
+            });
+
+            document.getElementById('page-name').value = '';
+            document.getElementById('page-url').value = '';
+
+            saveAndRender();
+        }
+
+        function updateStatus(id, newStatus) {
+            const page = pages.find(p => p.id === id);
+            if (page) {
+                page.status = newStatus;
+                saveAndRender();
+            }
+        }
+
+        function updateNotes(id, notes) {
+            const page = pages.find(p => p.id === id);
+            if (page) {
+                page.notes = notes;
+                saveData();
+            }
+        }
+
+        function deletePage(id) {
+            if (confirm('Seite wirklich löschen?')) {
+                pages = pages.filter(p => p.id !== id);
+                saveAndRender();
+            }
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('pages-tbody');
+            tbody.innerHTML = '';
+
+            pages.forEach(page => {
+                const row = document.createElement('tr');
+
+                const statusClass = page.status === 'Ausstehend' ? 'pending' :
+                                  page.status === 'In Arbeit' ? 'in-progress' : 'completed';
+
+                row.innerHTML = `
+                    <td>${page.name}</td>
+                    <td><a href="${page.url}" target="_blank">${page.url}</a></td>
+                    <td class="priority-${page.priority.toLowerCase()}">${page.priority}</td>
+                    <td class="complexity-${page.complexity.toLowerCase()}">${page.complexity}</td>
+                    <td>
+                        <select onchange="updateStatus(${page.id}, this.value)">
+                            <option value="Ausstehend" ${page.status === 'Ausstehend' ? 'selected' : ''}>Ausstehend</option>
+                            <option value="In Arbeit" ${page.status === 'In Arbeit' ? 'selected' : ''}>In Arbeit</option>
+                            <option value="Fertig" ${page.status === 'Fertig' ? 'selected' : ''}>Fertig</option>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea
+                            rows="2"
+                            onblur="updateNotes(${page.id}, this.value)"
+                            placeholder="Notizen..."
+                        >${page.notes}</textarea>
+                    </td>
+                    <td>
+                        <button class="delete-btn" onclick="deletePage(${page.id})">Löschen</button>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStats() {
+            const total = pages.length;
+            const pending = pages.filter(p => p.status === 'Ausstehend').length;
+            const inProgress = pages.filter(p => p.status === 'In Arbeit').length;
+            const completed = pages.filter(p => p.status === 'Fertig').length;
+
+            document.getElementById('total-pages').textContent = total;
+            document.getElementById('pending-pages').textContent = pending;
+            document.getElementById('in-progress-pages').textContent = inProgress;
+            document.getElementById('completed-pages').textContent = completed;
+
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+        }
+
+        function saveData() {
+            localStorage.setItem('migration-pages', JSON.stringify(pages));
+        }
+
+        function saveAndRender() {
+            saveData();
+            renderTable();
+            updateStats();
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(pages, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'migration-tracker-' + new Date().toISOString().split('T')[0] + '.json';
+            link.click();
+        }
+
+        function exportCSV() {
+            let csv = 'Seitenname,URL,Priorität,Komplexität,Status,Notizen\n';
+            pages.forEach(page => {
+                csv += `"${page.name}","${page.url}","${page.priority}","${page.complexity}","${page.status}","${page.notes}"\n`;
+            });
+
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'migration-tracker-' + new Date().toISOString().split('T')[0] + '.csv';
+            link.click();
+        }
+    </script>
+</body>
+</html>

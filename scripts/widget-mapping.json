@@ -1,0 +1,245 @@
+{
+  "elementor_to_gutenberg_mapping": {
+    "description": "Mapping von Elementor Widgets zu Gutenberg Blocks",
+    "last_updated": "2024-10-24",
+    "mappings": [
+      {
+        "elementor_widget": "heading",
+        "elementor_name": "Heading",
+        "gutenberg_block": "core/heading",
+        "gutenberg_name": "Überschrift",
+        "plugin_required": null,
+        "notes": "Direkte 1:1 Konvertierung möglich"
+      },
+      {
+        "elementor_widget": "text-editor",
+        "elementor_name": "Text Editor",
+        "gutenberg_block": "core/paragraph",
+        "gutenberg_name": "Absatz",
+        "plugin_required": null,
+        "notes": "Formatierungen sollten übernommen werden können"
+      },
+      {
+        "elementor_widget": "image",
+        "elementor_name": "Image",
+        "gutenberg_block": "core/image",
+        "gutenberg_name": "Bild",
+        "plugin_required": null,
+        "notes": "Alt-Text und Caption manuell prüfen"
+      },
+      {
+        "elementor_widget": "button",
+        "elementor_name": "Button",
+        "gutenberg_block": "core/button",
+        "gutenberg_name": "Button",
+        "plugin_required": null,
+        "notes": "Styling muss angepasst werden"
+      },
+      {
+        "elementor_widget": "divider",
+        "elementor_name": "Divider",
+        "gutenberg_block": "core/separator",
+        "gutenberg_name": "Separator",
+        "plugin_required": null,
+        "notes": "Style-Varianten unterschiedlich"
+      },
+      {
+        "elementor_widget": "spacer",
+        "elementor_name": "Spacer",
+        "gutenberg_block": "core/spacer",
+        "gutenberg_name": "Abstandhalter",
+        "plugin_required": null,
+        "notes": "Höhe in px manuell übertragen"
+      },
+      {
+        "elementor_widget": "icon-list",
+        "elementor_name": "Icon List",
+        "gutenberg_block": "kadence/iconlist",
+        "gutenberg_name": "Kadence Icon List",
+        "plugin_required": "kadence-blocks",
+        "notes": "Icons müssen ggf. neu ausgewählt werden"
+      },
+      {
+        "elementor_widget": "accordion",
+        "elementor_name": "Accordion",
+        "gutenberg_block": "kadence/accordion",
+        "gutenberg_name": "Kadence Accordion",
+        "plugin_required": "kadence-blocks",
+        "notes": "Inhalte kopieren und neu strukturieren"
+      },
+      {
+        "elementor_widget": "tabs",
+        "elementor_name": "Tabs",
+        "gutenberg_block": "kadence/tabs",
+        "gutenberg_name": "Kadence Tabs",
+        "plugin_required": "kadence-blocks",
+        "notes": "Tab-Titel und Inhalte manuell übertragen"
+      },
+      {
+        "elementor_widget": "testimonial",
+        "elementor_name": "Testimonial",
+        "gutenberg_block": "kadence/testimonials",
+        "gutenberg_name": "Kadence Testimonials",
+        "plugin_required": "kadence-blocks",
+        "notes": "Bilder und Zitate übertragen"
+      },
+      {
+        "elementor_widget": "counter",
+        "elementor_name": "Counter",
+        "gutenberg_block": "uagb/counter",
+        "gutenberg_name": "Spectra Counter",
+        "plugin_required": "ultimate-addons-for-gutenberg",
+        "notes": "Zahlen und Animationen anpassen"
+      },
+      {
+        "elementor_widget": "progress",
+        "elementor_name": "Progress Bar",
+        "gutenberg_block": "uagb/progress-bar",
+        "gutenberg_name": "Spectra Progress Bar",
+        "plugin_required": "ultimate-addons-for-gutenberg",
+        "notes": "Prozentsätze und Farben übertragen"
+      },
+      {
+        "elementor_widget": "pricing-table",
+        "elementor_name": "Pricing Table",
+        "gutenberg_block": "kadence/advancedbtn",
+        "gutenberg_name": "Kadence Advanced Button oder Custom",
+        "plugin_required": "kadence-blocks",
+        "notes": "Komplex - ggf. mit Columns und Buttons nachbauen"
+      },
+      {
+        "elementor_widget": "google-maps",
+        "elementor_name": "Google Maps",
+        "gutenberg_block": "kadence/googlemaps",
+        "gutenberg_name": "Kadence Google Maps",
+        "plugin_required": "kadence-blocks",
+        "notes": "API Key wird benötigt"
+      },
+      {
+        "elementor_widget": "gallery",
+        "elementor_name": "Gallery",
+        "gutenberg_block": "core/gallery",
+        "gutenberg_name": "Galerie",
+        "plugin_required": null,
+        "alternative": "kadence/advancedgallery",
+        "notes": "Core Gallery oder Kadence Advanced Gallery für mehr Features"
+      },
+      {
+        "elementor_widget": "image-carousel",
+        "elementor_name": "Image Carousel",
+        "gutenberg_block": "kadence/advancedgallery",
+        "gutenberg_name": "Kadence Advanced Gallery (Slider-Modus)",
+        "plugin_required": "kadence-blocks",
+        "notes": "Als Slider konfigurieren"
+      },
+      {
+        "elementor_widget": "video",
+        "elementor_name": "Video",
+        "gutenberg_block": "core/video",
+        "gutenberg_name": "Video",
+        "plugin_required": null,
+        "alternative": "core/embed",
+        "notes": "Core Video oder Embed für YouTube/Vimeo"
+      },
+      {
+        "elementor_widget": "form",
+        "elementor_name": "Form",
+        "gutenberg_block": "contact-form-7",
+        "gutenberg_name": "Contact Form 7",
+        "plugin_required": "contact-form-7",
+        "alternatives": ["wpforms", "formidable", "kadence/form"],
+        "notes": "Komplett neu erstellen, Formular-Logik nachbauen"
+      },
+      {
+        "elementor_widget": "social-icons",
+        "elementor_name": "Social Icons",
+        "gutenberg_block": "core/social-links",
+        "gutenberg_name": "Social Icons",
+        "plugin_required": null,
+        "notes": "Links manuell übertragen"
+      },
+      {
+        "elementor_widget": "icon-box",
+        "elementor_name": "Icon Box",
+        "gutenberg_block": "kadence/iconlist",
+        "gutenberg_name": "Kadence Icon List oder Info Box",
+        "plugin_required": "kadence-blocks",
+        "alternative": "uagb/info-box",
+        "notes": "Als einzelnes Element oder mit Columns"
+      },
+      {
+        "elementor_widget": "star-rating",
+        "elementor_name": "Star Rating",
+        "gutenberg_block": "uagb/star-rating",
+        "gutenberg_name": "Spectra Star Rating",
+        "plugin_required": "ultimate-addons-for-gutenberg",
+        "notes": "Bewertung übertragen"
+      },
+      {
+        "elementor_widget": "image-box",
+        "elementor_name": "Image Box",
+        "gutenberg_block": "core/media-text",
+        "gutenberg_name": "Medien & Text",
+        "plugin_required": null,
+        "alternative": "kadence/rowlayout",
+        "notes": "Mit Media & Text oder Kadence Row Layout"
+      },
+      {
+        "elementor_widget": "call-to-action",
+        "elementor_name": "Call to Action",
+        "gutenberg_block": "core/cover",
+        "gutenberg_name": "Cover",
+        "plugin_required": null,
+        "notes": "Mit Cover Block und Button kombinieren"
+      },
+      {
+        "elementor_widget": "column",
+        "elementor_name": "Column",
+        "gutenberg_block": "core/columns",
+        "gutenberg_name": "Spalten",
+        "plugin_required": null,
+        "alternative": "kadence/rowlayout",
+        "notes": "Spaltenanzahl anpassen"
+      },
+      {
+        "elementor_widget": "section",
+        "elementor_name": "Section",
+        "gutenberg_block": "core/group",
+        "gutenberg_name": "Gruppe",
+        "plugin_required": null,
+        "alternative": "kadence/rowlayout",
+        "notes": "Als Group oder Kadence Section"
+      }
+    ],
+    "required_plugins": {
+      "kadence-blocks": {
+        "name": "Kadence Blocks",
+        "url": "https://wordpress.org/plugins/kadence-blocks/",
+        "free": true,
+        "pro_version": true,
+        "recommended": true
+      },
+      "ultimate-addons-for-gutenberg": {
+        "name": "Spectra (Ultimate Addons for Gutenberg)",
+        "url": "https://wordpress.org/plugins/ultimate-addons-for-gutenberg/",
+        "free": true,
+        "pro_version": true,
+        "recommended": true
+      },
+      "generateblocks": {
+        "name": "GenerateBlocks",
+        "url": "https://wordpress.org/plugins/generateblocks/",
+        "free": true,
+        "pro_version": true,
+        "recommended": "if_using_generatepress_theme"
+      },
+      "contact-form-7": {
+        "name": "Contact Form 7",
+        "url": "https://wordpress.org/plugins/contact-form-7/",
+        "free": true,
+        "pro_version": false,
+        "recommended": "for_forms"
+      }
+    }
+  }
+}
