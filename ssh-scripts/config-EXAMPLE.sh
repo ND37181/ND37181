@@ -14,7 +14,7 @@ SSH_USER="56927191.swh.strato-hosting.eu"
 SSH_PASS="hgFMK82B3zsUSi-"  # ÄNDERN SIE DIES, falls Passwort anders ist
 
 # WordPress-Pfade
-WP_PATH="STRATO-apps/wordpress_02/app"
+WP_PATH="STRATO-apps/wordpress_01/app"
 WP_ADMIN_URL="https://fahrzeugelektronik-service.de/wp-admin"
 WP_SITE_URL="https://fahrzeugelektronik-service.de"
 
